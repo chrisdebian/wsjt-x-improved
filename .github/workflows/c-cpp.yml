@@ -10,15 +10,15 @@ on:
 
 jobs:
  build:
-     runs-on: ${{ matrix.os }} # Correct line placement and indentation
-     strategy:
-       matrix:
+   runs-on: ${{ matrix.os }} # Correct line placement and indentation
+   strategy:
+     matrix:
          os: [ubuntu-latest, windows-latest]
-     steps:
+   steps:
     - uses: actions/checkout@v4
     - name: Install Dependencies
       run: sudo apt-get install -y build-essential qtbase5-dev cmake libusb-1.0-0-dev # Example packages
-      - name: Configure and Build
+    - name: Configure and Build
       run: |
     cmake -B build -S .
     cmake --build build
