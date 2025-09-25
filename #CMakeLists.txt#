@@ -263,3 +263,12 @@ the DESTDIR variable to the build step e.g.:
 which would install into ~/local/usr/local.
 
 " )
+# Add tests to CMakeLists.txt
+option(BUILD_TESTS "Build test suite" OFF)
+option(ENABLE_COVERAGE "Enable code coverage" OFF)
+
+if(BUILD_TESTS)
+    enable_testing()
+    find_package(Catch2 3 REQUIRED)
+    add_subdirectory(tests)
+endif()
