@@ -1,0 +1,45 @@
+
+ __       __   ______      _____  ________      __    __ 
+|  \  _  |  \ /      \    |     \|        \    |  \  |  \
+| $$ / \ | $$|  $$$$$$\    \$$$$$ \$$$$$$$$    | $$  | $$
+| $$/  $\| $$| $$___\$$      | $$   | $$ ______ \$$\/  $$
+| $$  $$$\ $$ \$$    \  __   | $$   | $$|      \ >$$  $$ 
+| $$ $$\$$\$$ _\$$$$$$\|  \  | $$   | $$ \$$$$$$/  $$$$\ 
+| $$$$  \$$$$|  \__| $$| $$__| $$   | $$       |  $$ \$$\
+| $$$    \$$$ \$$    $$ \$$    $$   | $$       | $$  | $$
+ \$$      \$$  \$$$$$$   \$$$$$$     \$$        \$$   \$$
+                                                         
+                                                         
+Copyright 2001 - 2025 by Joe Taylor, K1JT, and the WSJT Development Team.
+                                                         
+This  project  doesn't  work  on  MS  Windows.  This  is  because  the
+environment  required to  build Hamlib,  a MinGW  environment, is  not
+suitable  for  building  the  WSJT-X application.  The  WSJT-X  build,
+because of the way Qt applications  must be built, requires a modified
+MS DOS command environment. The  two environments are incompatible and
+cannot easily be  used in a common  build script like the  one in this
+project.
+
+Although this  project will  probably work  on Apple Mac  OS X,  it is
+incomplete since on that platform there are several other dependencies
+and tools  required that are not  available as standard on  a Mac. See
+the WSJT-X project for a suitable recipe for building WSJT-X on a Mac.
+
+Debian and RPM packages generated directly by this project are not yet
+suitable for submission to official  distributions. This is mainly due
+to limitations in the CPack  package generators invoked by CPack. This
+doesn't preclude  the two phase  build method  being used to  make and
+build from  a source tarball.  It just means that  package maintainers
+will probably have to develop their own package control files.
+
+Currently this  project makes use  of a forked Hamlib  git repository,
+use of  forks of  dependent libraries is  not recommended  by official
+Linux distributions but we have  little choice at present. All patches
+made in  the Hamlib fork are  being submitted upstream so  soon a fork
+will  not be  required. At  this point  a snapshot  of the  Hamlib git
+master may be substituted. Using a snapshot (or a patch generated from
+it) may  also be  problematic as  well.  When the  Hamlib team  make a
+release of  Hamlib v3  and that  is accepted  into the  official Linux
+repositories;  the need  for  a fork  or snapshot  will  no longer  be
+necessary. At that point this project will probably be obsolete as the
+WSJT-X build script and source kit will be sufficient.

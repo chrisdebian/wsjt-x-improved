@@ -1,0 +1,207 @@
+
+ __       __   ______      _____  ________      __    __ 
+|  \  _  |  \ /      \    |     \|        \    |  \  |  \
+| $$ / \ | $$|  $$$$$$\    \$$$$$ \$$$$$$$$    | $$  | $$
+| $$/  $\| $$| $$___\$$      | $$   | $$ ______ \$$\/  $$
+| $$  $$$\ $$ \$$    \  __   | $$   | $$|      \ >$$  $$ 
+| $$ $$\$$\$$ _\$$$$$$\|  \  | $$   | $$ \$$$$$$/  $$$$\ 
+| $$$$  \$$$$|  \__| $$| $$__| $$   | $$       |  $$ \$$\
+| $$$    \$$$ \$$    $$ \$$    $$   | $$       | $$  | $$
+ \$$      \$$  \$$$$$$   \$$$$$$     \$$        \$$   \$$
+                                                         
+                                                         
+Copyright 2001 - 2025 by Joe Taylor, K1JT, and the WSJT Development Team.
+
+
+Installation
+============
+
+To  build WSJT-X  from sources  you need  some prerequisite  tools and
+libraries.
+
+On Linux:
+
+   build-essential
+   gcc-4.8.2 or clang-3.4 or newer
+   g++-4.8.2 or clang-3.4 or newer
+   gfortran-4.8.2 or newer
+   CMake-2.8.9 or newer
+   git
+   asciidoc
+   asciidoctor
+   texinfo
+
+   Also   qtmultimedia5-dev,    libqt5serialport5-dev,   qttools5-dev,
+   qttools5-dev-tools,         libboost-all-dev,         libfftw3-dev,
+   libreadline-dev,      libusb-1.0-0-dev,       libudev-dev,      and
+   portaudio19-dev.   Note that  these are  Debian dpkg  style package
+   names, other  distributions will  have different package  names and
+   package contents.   For example  on RedHat RPM  style distributions
+   the  packages   will  be  something   like  qt5-qtmultimedia-devel,
+   qt5-qtserialpport-devel,  qt5-linguist,   boost-devel,  fftw-devel,
+   readline-devel, systemd-devel, libusb-devel, and portaudio-devel.
+
+Out of source builds are strongly recommended.
+
+If you are  starting with the self-contained source  tarball then skip
+straight  to  the  section  below headed  "Building  WSJT-X  from  the
+Self-Contained Source Tarball".
+
+The  following   steps  are   instructions  to  generate   the  WSJT-X
+self-contained source tarball, you probably don't need to do that, see
+the previous paragraph.
+
+
+Configuring a Build Tree for Making the Self-Contained SOurce Tarball
+=====================================================================
+
+Create a  build directory somewhere  and cd  to it then  configure the
+build as follows:
+
+    $ mkdir <build-dir-path>
+    $ cd <build-dir-path>
+    $ cmake <source-dir-path>
+
+By default the build will  install the application in '/usr/local', if
+you want to install it somewhere else e.g. under your own account, you
+can   specify  the   install  prefix   as  a   configuration  variable
+(CMAKE_INSTALL_PREFIX):
+
+    $ cmake -D CMAKE_INSTALL_PREFIX=~/.local <source-dir-path>
+
+You may build  a specific version by specifying the  tag in the WSJT-X
+repository  e.g.  wsjtx-2.3.0  by  specifying  it  as  a  variable  to
+configure:
+
+    $ cmake -D WSJTX_TAG=wsjtx-2.3.0 <source-dir-path>
+
+Once configured the package can be built as follows:
+
+    $ cmake --build <build-dir-path>
+
+To install the application at the install prefix:
+
+    $ cmake --build <build-dir-path> --target install
+
+
+Making a Self-Contained Source Tarball
+======================================
+
+If you  are restricted  to local  files only on  your build  host, for
+example  a build  server  with  restricted or  no  Internet access,  a
+special source tarball can be  generated which contains all the source
+files needed rather than fetching them from the VCS at build time.
+
+In this mode you must augment  the source directory with the following
+files:
+
+1) src/hamlib.tgz      - GZIP compressed tarball of the hamlib sources,
+2) src/wsjtx.tgz       - GZIP compressed tarball of the WSJT-X sources,
+
+You should not do this  augmentation manually, the build script should
+be used in advance  on a host with Internet access  to make a suitable
+source  tarball for  use in  a  local build.   To do  this you  simply
+configure as  for a  normal build  selecting the  version you  wish to
+build using  the WSJTX_TAG variable  as above, then make  the 'source'
+target.  This  does a  build to  verify the  validity of  the upstream
+sources then packages  the project source along with  the extra source
+files above.   If this completes  successfully, a tarball that  can be
+used for a local build is automatically built. For example:
+
+    $ mkdir ~/build/wsjtx
+    $ cd ~/build/wsjtx
+    $ cmake -D WSJTX_TAG=wsjtx-2.3.0 <source-dir-path>
+    $ cmake --build . --target source
+
+NOTE:  CMake assumes  an  out of  source  build, in  this  case it  is
+mandatory as  the 'source' target  packages itself and  therefore must
+not include any build artefacts.
+
+
+Building WSJT-X from the Self-Contained Source Tarball
+======================================================
+
+The  above commands,  if  successful,  will produce  'wsjtx-2.3.0.tgz'
+which is  a source  tarball ready for  use on another  system to  do a
+local build, for example:
+
+    $ mkdir ~/build
+    $ cd ~/build
+    $ tar xzf wsjtx-2.3.0.tgz
+    $ mkdir build
+    $ cd build
+    $ cmake -DWSJT_SKIP_MANPAGES=ON -DWSJT_GENERATE_DOCS=OFF ../wsjtx-2.3.0
+    $ cmake --build .
+    $ sudo cmake --build . --target install
+
+If successful this will install the built application into /usr/local,
+if you  wish to install  it elsewhere,  simply set the  CMake variable
+CMAKE_INSTALL_PREFIX in the configure step above.
+
+
+Basic Package Building
+======================
+
+If you  are a  package maintainer  you will  probably use  the install
+target  above  along   with  tools  and  utilities   specific  to  the
+distribution you  are packaging  for. Alternatively, this  package can
+generate basic installation packages using  the CPack utility. You can
+specify an alternate target that  generates a suitable package for the
+system you run the build on.  The alternate target is 'package' and is
+built as follows:
+
+    $ cmake --build <build-dir-path> --target package
+
+If the build  is successful the location of the  built package(s) will
+be displayed at the end of the output.
+
+Other targets available include:
+
+     hamlib   		- just build the hamlib intermediate library
+
+     build		- stop after building WSJT-X (default target)
+
+     install		- stop after installing WSJT-X
+
+     package_source	- build source packages in several formats
+
+
+Patching Sources
+================
+
+This build  script includes source patching  capabilities. The sources
+for Hamlib and those for WSJT-X may have a patch applied automatically
+prior to  configuration and  building.  Any  patches required  must be
+contained in  one of  the files  hamlib.patch or  wsjtx.patch. Patches
+must  be generated  with respect  to the  top level  directory of  the
+respective source trees. Included in  the superbuild source tree are a
+pair of empty patch files hamlib.patch and wsjtx.patch which should be
+replaced by the  required patches, this may be done  prior to building
+the source package  or after the source package has  been extracted on
+the target build host.
+
+For example the following is a sample patch file for WSJT-X:
+
+commit ee27a8dafdfa54f3d4f4d786570e100944da33e5
+Author: bsomervi <bsomervi@ab8295b8-cf94-4d9e-aec4-7959e3be5d79>
+Date:   Mon Oct 26 23:42:26 2015 +0000
+
+    Qt>=5.4 compatibility
+    
+    git-svn-id: svn+ssh://svn.code.sf.net/p/wsjt/wsjt/branches/wsjtx-1.5@6007 ab8295b8-cf94-4d9e-aec4-7959e3be5d79
+
+diff --git a/WFPalette.hpp b/WFPalette.hpp
+index 271ca53..69a2b85 100644
+--- a/WFPalette.hpp
++++ b/WFPalette.hpp
+@@ -1,6 +1,7 @@
+ #ifndef W_F_PALETTE_HPP__
+ #define W_F_PALETTE_HPP__
+ 
++#include <QMetaType>
+ #include <QList>
+ #include <QVector>
+ #include <QColor>
+
+which would be substituted for the empty wsjtx.patch in the superbuild
+source tree.

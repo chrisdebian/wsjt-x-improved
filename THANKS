@@ -1,0 +1,23 @@
+
+ __       __   ______      _____  ________      __    __ 
+|  \  _  |  \ /      \    |     \|        \    |  \  |  \
+| $$ / \ | $$|  $$$$$$\    \$$$$$ \$$$$$$$$    | $$  | $$
+| $$/  $\| $$| $$___\$$      | $$   | $$ ______ \$$\/  $$
+| $$  $$$\ $$ \$$    \  __   | $$   | $$|      \ >$$  $$ 
+| $$ $$\$$\$$ _\$$$$$$\|  \  | $$   | $$ \$$$$$$/  $$$$\ 
+| $$$$  \$$$$|  \__| $$| $$__| $$   | $$       |  $$ \$$\
+| $$$    \$$$ \$$    $$ \$$    $$   | $$       | $$  | $$
+ \$$      \$$  \$$$$$$   \$$$$$$     \$$        \$$   \$$
+                                                         
+                                                         
+Copyright 2001 - 2024 by Joe Taylor, K1JT.
+                                                         
+Thanks to:
+
+    Greg Beam, KI7MT, for extensive help testing the WSJT-X Superbuild
+script for preparing a Debian  package build with the Ubuntu Launchpad
+tools.
+
+    Nate  Bargmann, N0NB,  and  the Hamlib  developer  team for  their
+excellent library  and for  prompt review and  acceptance of  the many
+pull requests for upstream patches to Hamlib.

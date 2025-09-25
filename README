@@ -1,0 +1,51 @@
+
+ __       __   ______      _____  ________      __    __ 
+|  \  _  |  \ /      \    |     \|        \    |  \  |  \
+| $$ / \ | $$|  $$$$$$\    \$$$$$ \$$$$$$$$    | $$  | $$
+| $$/  $\| $$| $$___\$$      | $$   | $$ ______ \$$\/  $$
+| $$  $$$\ $$ \$$    \  __   | $$   | $$|      \ >$$  $$ 
+| $$ $$\$$\$$ _\$$$$$$\|  \  | $$   | $$ \$$$$$$/  $$$$\ 
+| $$$$  \$$$$|  \__| $$| $$__| $$   | $$       |  $$ \$$\
+| $$$    \$$$ \$$    $$ \$$    $$   | $$       | $$  | $$
+ \$$      \$$  \$$$$$$   \$$$$$$     \$$        \$$   \$$
+                                                         
+                                                         
+                                                         
+Copyright 2001 - 2025 by Joe Taylor, K1JT, and the WSJT Development Team.
+
+WSJT-X Superbuild
+=================
+
+This  package builds  the WSJT-X  application.  It  does not  directly
+contain the source  files, instead it consists of a  CMake script that
+builds the application  by fetching the sources  from their respective
+source control repositories and then building the application.
+
+WSJT-X  also has  a CMake  build system  but currently  it also  has a
+dependency on a library called Hamlib which itself has to built from a
+fork of the  official Hamlib project. The Hamlib fork  is used because
+it  contains  the  latest  patches  not yet  accepted  by  the  Hamlib
+development team.
+
+This project combines he building of Hamlib and WSJT-X.  It also has a
+two phase mode that builds a complete source package in phase one that
+can then be transferred to another build host to be built in phase two
+there. This two  phase mode is aimed at Linux  package maintainers who
+have to have a complete upstream source package that can be built on a
+restricted build  server. The intermediate source  tarball is released
+by the WSJT-X team as a resource for conveniently building both Hamlib
+and WSJT-X from sources
+
+The WSJT-X project web site is:
+
+https://www.physics.princeton.edu/pulsar/K1JT/wsjtx.html
+
+Please refer to the component project README files as well:
+
+https://sourceforge.net/p/wsjt/wsjtx/ci/master/tree/README
+
+for WSJT-X and:
+
+https://sourceforge.net/p/hamlib/code/ci/master/tree/README
+
+for Hamlib.
